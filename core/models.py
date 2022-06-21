@@ -8,7 +8,7 @@ class AbstractModel(models.Model):
 
     updated_at = models.DateTimeField(auto_now=True)
 
-    deleted_at = models.DateTimeField()
+    deleted_at = models.DateTimeField(null=True)
 
     class Meta:
         abstract = True
