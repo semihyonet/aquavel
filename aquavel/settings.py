@@ -14,8 +14,6 @@ from pathlib import Path
 import os
 import sys
 
-import auth.models
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, '../apps'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,9 +34,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "core",
-    "auth",
+    "custom_auth",
     "cruise",
+
     "rest_framework",
+    'rest_framework_simplejwt',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'custom_auth.middlewares.AuthJTWDecode',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,11 +128,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
-
-AUTH_USER_MODEL = 'auth.models.CustomUser'
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
